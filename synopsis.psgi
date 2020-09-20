@@ -33,18 +33,17 @@ sub {
         next unless $event->is_message_event && $event->is_text_message;
         my $messages = LINE::Bot::API::Builder::SendMessage->new;
 
-        $messages->add_text( text => '文字数: ' . length($event->text) );
-
         if (Acme::Coc::Client::Util->is_valid_command($event->text)) {
-            my $command = Acme::Coc::Client::Util->get_command($event->text);
+
+            my $command = $event->text eq 'skill' ? 'role_1d100' : 'role_'.Acme::Coc::Client::Util->get_command($event->text);
 
             eval {
                 my $num = Acme::Coc::Dice->$command;
                 $messages->add_text( text => "$command: $num");
             };
 
-            if (my $error = $@) {
-                $messages->add_text( text => '有効なダイスじゃない(1d3, 1d4, 1d6, 1d8, 1d10, 1d100');
+            if ($@) {
+                $messages->add_text( text => '有効なダイスじゃない(1d3, 1d4, 1d6, 1d8, 1d10, 1d100 or skill');
             }
         }
 
