@@ -1,0 +1,2 @@
+# CocDiceBotPerl
+LineBotでcoc用ダイスbotを作りたいだけのリポジトリ。
