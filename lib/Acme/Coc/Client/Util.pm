@@ -1,6 +1,6 @@
 package Acme::Coc::Client::Util;
 
-sub is_valid_command {
+sub is_command {
     my ($self, $command) = @_;
     
     ## TODO: this is for future improvement.
