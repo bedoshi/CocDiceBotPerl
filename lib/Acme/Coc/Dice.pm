@@ -28,7 +28,9 @@ sub role_1d100 {
     return int(rand(100)) + 1;
 }
 
-
+sub role_skill {
+    return role_1d100;
+}
 sub role {
     my ($self, $command) = @_;
 

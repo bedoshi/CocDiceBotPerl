@@ -5,6 +5,7 @@ use utf8;
 use Acme::Coc::Dice;
 
 use Test2::V0;
+use Module::Spy;
 
 my $target = 'Acme::Coc::Dice';
 
@@ -48,6 +49,13 @@ subtest '#role_1d100' => sub {
         ok $target->role_1d100 >= 1;
         ok $target->role_1d100 <= 100;
     }
+};
+
+subtest '#role_skill' => sub {
+    my $spy_role_1d100 = spy_on($target, 'role_1d100')->and_call_through;
+    $spy_role_1d100->calls_reset;
+    $target->role_skill;
+    ok $spy_role_1d100->called;
 };
 
 done_testing;
