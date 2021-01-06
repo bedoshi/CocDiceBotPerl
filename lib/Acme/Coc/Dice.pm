@@ -28,4 +28,15 @@ sub role_1d100 {
     return int(rand(100)) + 1;
 }
 
+
+sub role {
+    my ($self, $command) = @_;
+
+    
+}
+
+sub is_available_parameter {
+    my ($command) = @_;
+}
+
 1;
