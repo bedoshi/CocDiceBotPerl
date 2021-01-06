@@ -1,20 +1,15 @@
 package Acme::Coc::Client::Util;
 
-sub is_command {
+sub is_valid_dice {
     my ($self, $command) = @_;
 
     return $self->validate_command($command);
 }
 
-sub is_str_command {
-    my ($self, $command) = @_;
-
-    return $command =~ /^\/.*/;
-}
-
 sub get_command {
     my ($self, $command) = @_;
     
+    return 'skill' if $command =~ /\/skill/;
     return undef unless $command =~ /\/.*/;
 
     $command =~ /(\/)(.*)/;
@@ -26,7 +21,7 @@ sub validate_command {
 
     # valid command format is /\/[1-0]+d[1-9][0-9]*/
     # e.g. /1d100 /1d3 /2d10 /1d6 /10d10
-    return $command =~ /\/[1-9][0-9]*d[1-9][0-9]*/; 
+    return $command =~ /\/[1-9][0-9]*d[1-9][0-9]*/ unless $command =~ /skill/;
 }
 
 1;

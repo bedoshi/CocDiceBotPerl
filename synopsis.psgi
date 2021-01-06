@@ -33,9 +33,9 @@ sub {
         next unless $event->is_message_event && $event->is_text_message;
         my $messages = LINE::Bot::API::Builder::SendMessage->new;
 
-        if (Acme::Coc::Client::Util->is_valid_command($event->text)) {
+        if (Acme::Coc::Client::Util->is_valid_dice($event->text)) {
 
-            my $command = $event->text eq 'skill' ? 'role_1d100' : 'role_'.Acme::Coc::Client::Util->get_command($event->text);
+            my $command = 'role_'.Acme::Coc::Client::Util->get_command($event->text);
 
             eval {
                 my $num = Acme::Coc::Dice->$command;
