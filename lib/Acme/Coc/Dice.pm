@@ -29,14 +29,27 @@ sub role_1d100 {
 }
 
 sub role_skill {
-    return role_1d100;
+    return int(rand(100)) + 1;
 }
+
 sub role {
     my ($self, $command) = @_;
 
-    # I want to integrate upper function into this.
-    # mdn in $command can be separated to m/d/n, and m is the times of roling dice, n is the number of sided dice.
-    
+    # MdN in $command can be separated to M/d/N, and M is the times of roling dice, N is the number of sided dice.
+    return [ role_skill ] if $command =~ /skill/;
+
+    $command =~ /(\/)([1-9][0-9]*)d([1-9][0-9]*)/;
+
+    my $times = $2;
+    my $sided_dice = $3;
+
+    my $result = [];
+
+    for (1..$times) {
+        push @{ $result }, int(rand($sided_dice) + 1);
+    }
+
+    return $result;
 }
 
 1;

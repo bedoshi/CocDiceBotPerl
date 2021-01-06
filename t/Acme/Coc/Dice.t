@@ -51,12 +51,32 @@ subtest '#role_1d100' => sub {
     }
 };
 
-subtest '#role_skill' => sub {
-    my $spy_role_1d100 = spy_on($target, 'role_1d100')->and_call_through;
-    $spy_role_1d100->calls_reset;
-    $target->role_skill;
-    ok $spy_role_1d100->called;
+subtest '#role' => sub {
+    my $spy_role_skill = spy_on($target, 'role_skill')->and_call_through;
+
+    $spy_role_skill->calls_reset;
+    my $result = $target->role('/1d100');
+    is @{ $result }, 1;
+    for my $item (@{ $result }) {
+        ok $item >= 1 && $item <= 100, "1 <= result <= 100: $item";
+        ok !$spy_role_skill->called, 'role_skill was not called';
+    }
+
+    $spy_role_skill->calls_reset;
+    $result = $target->role('/10d10');
+    is @{ $result }, 10;
+    for my $item (@{ $result }) {
+        ok $item >= 1 && $item <= 10, "1 <= result <= 10: $item";
+        ok !$spy_role_skill->called, 'role_skill was not called';
+    }
+
+    $spy_role_skill->calls_reset;
+    $result = $target->role('/skill');
+    is @{ $result }, 1;
+    for my $item (@{ $result }) {
+        ok $item >= 1 && $item <= 100, "1 <= result <= 100: $item";
+        ok $spy_role_skill, 'role_skill was called';
+    }
 };
 
 done_testing;
-
