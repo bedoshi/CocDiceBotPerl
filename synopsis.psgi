@@ -34,19 +34,14 @@ sub {
         my $messages = LINE::Bot::API::Builder::SendMessage->new;
 
         if (Acme::Coc::Client::Util->is_valid_dice($event->text)) {
-
-            my $command = 'role_'.Acme::Coc::Client::Util->get_command($event->text);
-
             eval {
-                my $num = Acme::Coc::Dice->$command;
-                $messages->add_text( text => "$command: $num");
+                my $results = Acme::Coc::Dice->role($event->text);
+                $messages->add_text( text => Acme::Coc::Client::Util->format_result($event->text, $results));
             };
 
             if ($@) {
-                $messages->add_text( text => '有効なダイスじゃない(1d3, 1d4, 1d6, 1d8, 1d10, 1d100 or skill');
+                $messages->add_text( text => "有効なダイスを入力してください（1d3, 1d4, 1d6, 1d8, 1d10, 1d100 or skill) \n error: $@");
             }
-        } else {
-            $messages->add_text( text => '有効なダイスじゃない(e.g. /skill /1d100 /1d6 /1d3 などで入力してね');
         }
 
         $bot->reply_message($event->reply_token, $messages->build);

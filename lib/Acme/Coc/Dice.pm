@@ -1,4 +1,6 @@
 package Acme::Coc::Dice;
+use utf8;
+use strict;
 
 use Carp qw/croak/;
 
@@ -43,17 +45,16 @@ sub role {
     $command =~ /(\/)([1-9][0-9]*)d([1-9][0-9]*)/;
 
     my $times = $2;
-    croak "ダイスを降る回数が多すぎます。現在は10回までに制限しています。(input: $2)" if $times > 10;
-
     my $sided_dice = $3;
+    my $results = [];
 
-    my $result = [];
+    croak "ダイスを降る回数が多すぎます。現在は10回までに制限しています。(input: $times)" if $times > 10;
 
     for (1..$times) {
-        push @{ $result }, int(rand($sided_dice) + 1);
+        push @{ $results }, " ・ " . int(rand($sided_dice) + 1);
     }
 
-    return $result;
+    return $results;
 }
 
 1;
