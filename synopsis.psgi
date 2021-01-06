@@ -45,6 +45,8 @@ sub {
             if ($@) {
                 $messages->add_text( text => '有効なダイスじゃない(1d3, 1d4, 1d6, 1d8, 1d10, 1d100 or skill');
             }
+        } else {
+            $messages->add_text( text => '有効なダイスじゃない(e.g. /skill /1d100 /1d6 /1d3 などで入力してね');
         }
 
         $bot->reply_message($event->reply_token, $messages->build);
