@@ -1,6 +1,10 @@
 requires 'LINE::Bot::API';
 requires 'Plack';
 
+# for exception
+requires 'Carp';
+requires 'Try::Tiny';
+
 # for test
 requires 'Test::More';
 requires 'Test2::V0';
