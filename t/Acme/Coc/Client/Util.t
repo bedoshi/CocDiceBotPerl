@@ -15,14 +15,14 @@ subtest '#is_str_command' => sub {
 };
 
 subtest '#is_command' => sub {
-    my $spy = spy_on($target, 'is_str_command')->and_call_through;
+    my $spy = spy_on($target, 'validate_command')->and_call_through;
 
     $spy->calls_reset;
     ok !$target->is_command('hello_world');
     ok $spy->called;
 
     $spy->calls_reset;
-    ok $target->is_command('/hello_world');
+    ok $target->is_command('/1d100');
     ok $spy->called;
 };
 

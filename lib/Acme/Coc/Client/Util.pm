@@ -2,9 +2,8 @@ package Acme::Coc::Client::Util;
 
 sub is_command {
     my ($self, $command) = @_;
-    
-    ## TODO: this is for future improvement.
-    return $self->is_str_command($command);
+
+    return $self->validate_command($command);
 }
 
 sub is_str_command {
