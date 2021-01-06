@@ -37,8 +37,4 @@ sub role {
     
 }
 
-sub is_available_parameter {
-    my ($command) = @_;
-}
-
 1;
