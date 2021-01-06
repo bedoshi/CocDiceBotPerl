@@ -31,7 +31,7 @@ sub format_result {
 
     my $str = "result of $command...";
     for my $item (@{ $results }) {
-        $str .= "\n" . $item;
+        $str .= "\n" . " ・ " . $item;
     }
 
     return $str;
