@@ -32,6 +32,8 @@ sub role_1d100 {
 sub role {
     my ($self, $command) = @_;
 
+    # I want to integrate upper function into this.
+    # mdn in $command can be separated to m/d/n, and m is the times of roling dice, n is the number of sided dice.
     
 }
 
