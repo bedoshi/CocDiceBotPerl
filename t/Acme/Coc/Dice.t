@@ -16,24 +16,24 @@ subtest '#role' => sub {
 
         $spy_role_skill->calls_reset;
         my $result = $target->role('/1d100');
-        is @{ $result }, 1;
-        for my $item (@{ $result }) {
+        is @{ $result->{dices} }, 1;
+        for my $item (@{ $result->{dices} }) {
             ok $item >= 1 && $item <= 100, "1 <= result <= 100: $item";
             ok !$spy_role_skill->called, 'role_skill was not called';
         }
 
         $spy_role_skill->calls_reset;
         $result = $target->role('/10d10');
-        is @{ $result }, 10;
-        for my $item (@{ $result }) {
+        is @{ $result->{dices} }, 10;
+        for my $item (@{ $result->{dices} }) {
             ok $item >= 1 && $item <= 10, "1 <= result <= 10: $item";
             ok !$spy_role_skill->called, 'role_skill was not called';
         }
 
         $spy_role_skill->calls_reset;
         $result = $target->role('/skill');
-        is @{ $result }, 1;
-        for my $item (@{ $result }) {
+        is @{ $result->{dices} }, 1;
+        for my $item (@{ $result->{dices} }) {
             ok $item >= 1 && $item <= 100, "1 <= result <= 100: $item";
             ok $spy_role_skill, 'role_skill was called';
         }
@@ -51,6 +51,21 @@ subtest '#role' => sub {
         };
 
         ok $@, 'get error';
+    };
+
+    subtest 'returning error when user send command like "skill"' => sub {
+        eval {
+            $target->role('/skill');
+        };
+
+        ok !$@, 'expected as no error';
+
+        ## TODO: need to pass this test case.
+        # eval {
+        #     $target->role('skill');
+        # };
+
+        # ok $@, 'expected as getting error';
     };
 };
 
