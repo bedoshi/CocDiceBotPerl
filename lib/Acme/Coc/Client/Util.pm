@@ -27,12 +27,13 @@ sub validate_command {
 }
 
 sub format_result {
-    my ($self, $command, $results) = @_;
+    my ($self, $command, $result) = @_;
 
     my $str = "result of $command...";
-    for my $item (@{ $results }) {
-        $str .= "\n" . " ・ " . $item;
+    for my $item (@{ $result->{dices} }) {
+        $str .= "\n ・${item}";
     }
+    $str .= "\n sum: " . $result->{sum};
 
     return $str;
 }

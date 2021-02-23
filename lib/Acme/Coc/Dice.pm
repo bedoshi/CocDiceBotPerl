@@ -19,14 +19,21 @@ sub role {
     my $times = $2;
     my $sided_dice = $3;
     my $results = [];
+    my $sum = 0;
 
     croak "ダイスを振る回数が多すぎます。現在は10回までに制限しています。(input: $times)" if $times > 10;
 
     for (1..$times) {
-        push @{ $results }, int(rand($sided_dice) + 1);
+        my $rand = int(rand($sided_dice) + 1;
+        push @{ $results }, $rand);
+        $sum += $rand;
     }
 
-    return $results;
+    my $role_result = {
+        dices => $results,
+        sum => $sum,
+    };
+    return $role_result;
 }
 
 1;
