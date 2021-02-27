@@ -9,7 +9,6 @@ use Module::Spy;
 
 my $target = 'Acme::Coc::Client::Util';
 
-
 subtest '#is_valid_dice' => sub {
     my $spy = spy_on($target, 'validate_command')->and_call_through;
 
