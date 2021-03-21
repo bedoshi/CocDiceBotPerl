@@ -14,8 +14,6 @@ sub role {
     my ($self, $command) = @_;
 
     # MdN in $command can be separated to M/d/N, and M is the times of roling dice, N is the number of sided dice.
-    use Data::Dumper;
-    print Dumper($command =~ /\/skill/);
     return $self->role_skill if $command =~ /\/skill/;
 
     $command =~ /(\/)([1-9][0-9]*)d([1-9][0-9]*)/;
