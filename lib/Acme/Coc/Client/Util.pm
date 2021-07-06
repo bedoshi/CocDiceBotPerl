@@ -1,4 +1,4 @@
-package Acme::Coc::Client::Util;
+package Acme::CoC::Client::Util;
 use utf8;
 use strict;
 

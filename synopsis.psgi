@@ -6,8 +6,8 @@ use LINE::Bot::API;
 use LINE::Bot::API::Builder::SendMessage;
 use Plack::Request;
 use Data::Dumper;
-use Acme::Coc::Dice;
-use Acme::Coc::Client::Util;
+use Acme::CoC::Dice;
+use Acme::CoC::Client::Util;
 
 my $channel_secret          = $ENV{CHANNEL_SECRET};
 my $channel_access_token    = $ENV{CHANNEL_ACCESS_TOKEN};
@@ -33,10 +33,10 @@ sub {
         next unless $event->is_message_event && $event->is_text_message;
         my $messages = LINE::Bot::API::Builder::SendMessage->new;
 
-        if (Acme::Coc::Client::Util->is_valid_dice($event->text)) {
+        if (Acme::CoC::Client::Util->is_valid_dice($event->text)) {
             eval {
-                my $results = Acme::Coc::Dice->role($event->text);
-                $messages->add_text( text => Acme::Coc::Client::Util->format_result($event->text, $results));
+                my $results = Acme::CoC::Dice->role(Acme::CoC::Client::Util->get_command($event->text));
+                $messages->add_text( text => Acme::CoC::Client::Util->format_result($event->text, $results));
             };
 
             if ($@) {
