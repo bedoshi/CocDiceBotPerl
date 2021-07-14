@@ -2,12 +2,14 @@
 use strict;
 use utf8;
 use warnings;
+
+use CoCBot::Util;
+
 use LINE::Bot::API;
 use LINE::Bot::API::Builder::SendMessage;
 use Plack::Request;
-use Data::Dumper;
 use Acme::CoC::Dice;
-use Acme::CoC::Client::Util;
+use Data::Dumper;
 
 my $channel_secret          = $ENV{CHANNEL_SECRET};
 my $channel_access_token    = $ENV{CHANNEL_ACCESS_TOKEN};
@@ -35,8 +37,8 @@ sub {
 
         if (Acme::CoC::Client::Util->is_valid_dice($event->text)) {
             eval {
-                my $results = Acme::CoC::Dice->role(Acme::CoC::Client::Util->get_command($event->text));
-                $messages->add_text( text => Acme::CoC::Client::Util->format_result($event->text, $results));
+                my $results = Acme::CoC::Dice->role(CoCBot::Util->get_command($event->text));
+                $messages->add_text( text => CoCBot::Util->format_result($event->text, $results));
             };
 
             if ($@) {
