@@ -35,8 +35,13 @@ sub {
 
         if (Client::Util->is_valid_dice($event->text)) {
             eval {
-                my $results = Acme::CoC::Dice->role(Client::Util->get_command($event->text));
-                $messages->add_text( text => Client::Util->format_result($event->text, $results));
+                my $command = Client::Util->get_command($event->text);
+                $messages->add_text(text => 'input command: ' . $command);
+                if ($command =~ 'make_audience') {
+                    $messages->add_text(text => Client::Util->make_audience($command));
+                } else {
+                    $messages->add_text(text => Client::Util->format_result($event->text, Acme::CoC::Dice->role($command)));
+                }
             };
 
             if ($@) {
