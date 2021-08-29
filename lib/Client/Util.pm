@@ -23,7 +23,7 @@ sub validate_command {
 
     # valid command format is /\/[1-0]+d[1-9][0-9]*/
     # e.g. /1d100 /1d3 /2d10 /1d6 /10d10
-    return $command =~ /\/[1-9][0-9]*d[1-9][0-9]*/ unless $command =~ /skill/;
+    return $command =~ /\/[1-9][0-9]*d[1-9][0-9]*/ || $command =~ /\/skill/;
 }
 
 sub format_result {

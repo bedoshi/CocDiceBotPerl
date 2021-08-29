@@ -32,8 +32,8 @@ subtest '#get_command' => sub {
 };
 
 subtest 'validate_command' => sub {
-    my $ok_pattern = ['/1d100', '/1d3', '/2d10', '/1d6', '/10d10'];
-    my $ng_pattern = ['1d100', 'ad11', '12345', 'aaaaaa'];
+    my $ok_pattern = ['/skill', '/1d100', '/1d3', '/2d10', '/1d6', '/10d10'];
+    my $ng_pattern = ['skill', '1d100', 'ad11', '12345', 'aaaaaa'];
     for my $item (@{ $ok_pattern }) {
         ok $target->validate_command($item), "ok pattern: $item";
     }
