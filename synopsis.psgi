@@ -19,11 +19,11 @@ my $bot = LINE::Bot::API->new(
 
 sub {
     my $req = Plack::Request->new(shift);
- 
+
     unless ($req->method eq 'POST' && $req->path eq '/callback') {
         return [200, [], ['Not Found']];
     }
- 
+
     unless ($bot->validate_signature($req->content, $req->header('X-Line-Signature'))) {
         return [200, [], ['failed to validate signature']];
     }
@@ -46,6 +46,6 @@ sub {
 
         $bot->reply_message($event->reply_token, $messages->build);
     }
- 
+
     return [200, [], ["OK"]];
 };
