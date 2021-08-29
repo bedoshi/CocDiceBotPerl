@@ -1,10 +1,9 @@
 # Container's image
-FROM perl
+FROM perl:5.32.1
 
 LABEL maintainer="bedoshi <bedoshi@example.com>"
 
 WORKDIR /app
-
 # Execute with `docker build`
 RUN cpanm Plack -n
 RUN cpanm LINE::Bot::API -n

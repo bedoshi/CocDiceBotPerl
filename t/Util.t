@@ -2,12 +2,12 @@ use strict;
 use warnings;
 use utf8;
 
-use Acme::CoC::Client::Util;
+use Client::Util;
 
 use Test2::V0;
 use Module::Spy;
 
-my $target = 'Acme::CoC::Client::Util';
+my $target = 'Client::Util';
 
 subtest '#is_valid_dice' => sub {
     my $spy = spy_on($target, 'validate_command')->and_call_through;
