@@ -59,8 +59,8 @@ sub make_audience {
         audiences => [$2],
     });
 
-    return $res->audienceGroupId if $res->audienceGroupId;
-    return $res->message;
+    return $res->{audienceGroupId} if $res->{audienceGroupId};
+    return $res->{message};
 }
 
 1;
